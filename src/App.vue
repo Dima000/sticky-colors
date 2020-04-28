@@ -1,28 +1,36 @@
 <template>
   <div id="app">
-    <floating-card class="">
-      <template v-slot:main>
-        <div class="content"></div>
+    <sticky-panel class="sticky-panel"
+                  static-class="sticky-panel__static"
+                  sticky-class="sticky-panel__sticky"
+                  ref="stickyCard"
+                  :gap-top="20">
+
+      <template v-slot:static>
+        <div class="static__inner"></div>
       </template>
-      <template v-slot:floating>
-        <div class="floating"></div>
+      <template v-slot:sticky>
+        <div class="sticky__inner"></div>
       </template>
-    </floating-card>
+    </sticky-panel>
+    <div class="footer">
+      <div class="footer_inner"></div>
+    </div>
   </div>
 </template>
 
 <script>
-  import FloatingCard from './FloatingCard';
+  import StickyPanel from './StickyPanel';
 
   export default {
     name: 'App',
     components: {
-      FloatingCard,
+      StickyPanel,
     }
   }
 </script>
 
-<style>
+<style lang="scss">
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -30,18 +38,47 @@
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
-    padding: 100px 60px 400px;
+    padding: 100px 60px 600px;
   }
 
-  .content {
+  .sticky-panel {
+    display: flex;
+
+    &__static {
+      flex: 5
+    }
+
+    &__sticky {
+      flex: 3
+    }
+  }
+
+
+  .static__inner {
     height: 2500px;
     background-color: grey;
   }
 
-  .floating {
-    height: 250px;
-    background-color: lightsalmon;
+  .sticky__inner {
+    height: calc(100vh - 30px);
+    background-image: linear-gradient(rgb(123, 137, 140), rgb(146, 189, 184));
     margin-left: 20px;
     border-radius: 8px;
+  }
+
+  .footer {
+    border: 1px dashed gray;
+    height: 300px;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(146, 189, 184);
+
+    &_inner {
+      background-color: #818e8e;
+      width: 70%;
+      height: 70%;
+    }
   }
 </style>
